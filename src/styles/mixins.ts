@@ -18,3 +18,4 @@ export const boxShadow = (color = '#000', offset = {height:0,width:0}, radius = 
 	};
 };
 
+export const POPUP_ZINDEX = 999;

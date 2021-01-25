@@ -29,4 +29,26 @@ export enum ButtonTypes {
   UNPRESSED = 'UNPRESSED',
   EMPTY = 'EMPTY',
   DISABLED = 'DISABLED',
+  CIRCLE = 'CIRCLE'
+}
+
+
+export enum Navigations {
+  Onboarding = "Onboarding",
+  
+  Main = 'Main',
+  MainBotttomBar = 'MainBottomBar',
+  Start = 'Start',
+  
+  Auth = 'Auth',
+  Login = 'Login',
+  Signup = 'Signup'
+}
+
+
+export enum DIR {
+  column = 'column',
+  row = 'row',
+  rowReverse = 'row-reverse',
+  columnReverse = 'column-reverse'
 }

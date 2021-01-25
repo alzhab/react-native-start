@@ -7,7 +7,7 @@
     "isolatedModules": true,
     "jsx": "react",
     "indent": [true, "tabs", 2],
-    "lib": ["es6"],
+    "lib": ["es6", "dom", "es2017"],
     "strict": true,
     "suppressImplicitAnyIndexErrors": true,
     "moduleResolution": "node",
@@ -18,13 +18,14 @@
     "paths": {
       "@assets/*": ["src/assets/*"],
       "@icons": ["src/assets/icons/index.tsx"],
+      "@stores": ["src/stores/index.tsx"],
       "@components": ["src/components/index.ts"],
       "@navigations/*": ["src/navigations/*"],
       "@modules": ["src/modules/index.tsx"],
       "@styles/*": ["src/styles/*"],
       "@utils": ["src/utils/index.tsx"],
-      "@stores": ["src/stores/index.tsx"],
-      "@types": ["src/types/index.ts"]
+      "@types": ["src/types/index.ts"],
+      "@context": ["src/context/index.ts"]
     },
     "noEmit": true,
     "resolveJsonModule": true,

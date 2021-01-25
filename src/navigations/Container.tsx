@@ -1,52 +1,94 @@
 import React, {Component, ReactElement} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import {CardStyleInterpolators, createStackNavigator} from '@react-navigation/stack';
+import {Navigations} from '@types';
+import {Onboarding} from '@modules';
+import MainNavigaiton from '@navigations/Main';
+import {OnboardingContext} from '@context';
+import {Animated} from 'react-native';
 import {observer} from 'mobx-react';
-import {Loading, Modal, NoticeMessage} from '@molecules';
-import {ThemeContext} from '@styles/base';
-import {RootNavigations} from '@navigations/routes';
-import {loadingStore, noticeMessageStore, modalStore} from '@stores';
+import {LoadingBig, Message} from '@components';
+import {authStore, loadingStore, noticeMessageStore} from '@stores';
+import AuthNavigaiton from '@navigations/Auth';
+import {navigationRef} from '@navigations/RootNavigation';
+import {COLORS} from '@styles/base';
+
+const navigations = [
+  {
+    name: Navigations.Onboarding,
+    component: Onboarding
+  },
+  {
+    name: Navigations.Main,
+    component: MainNavigaiton
+  },
+  {
+    name: Navigations.Auth,
+    component: AuthNavigaiton
+  }
+];
+
+const forFade = ({ current, next }: any) => {
+  const opacity = Animated.add(
+    current.progress,
+    next ? next.progress : 0
+  ).interpolate({
+    inputRange: [0, 1, 2],
+    outputRange: [0, 1, 0],
+  });
+  
+  return {
+    leftButtonStyle: { opacity },
+    rightButtonStyle: { opacity },
+    titleStyle: { opacity },
+    backgroundStyle: { opacity },
+  };
+};
+
 
 const Stack = createStackNavigator();
 
 @observer
 class Container extends Component {
-  static contextType = ThemeContext;
+  static contextType = OnboardingContext;
   
   render(): ReactElement {
-  	const {colors} = this.context;
-  
-  	return (
-  		<>
-  			<Loading loading={loadingStore.loading}/>
-  			<NoticeMessage text={noticeMessageStore.text} show={noticeMessageStore.show} type={noticeMessageStore.type}/>
-  			<Modal full={modalStore.modalProps.full} show={modalStore.modalProps.show} empty={modalStore.modalProps.empty}
-  				closeModal={() => modalStore.closeModal()}>
-  				{modalStore.modalProps.children()}
-  			</Modal>
-     
-  			<NavigationContainer theme={{
-  				dark: false, colors: {
-  					primary: colors.PRIMARY,
-  					background: colors.MAIN_BG,
-  					card: colors.MAIN_BG,
-  					text: colors.FONT,
-  					border: colors.FONT,
-  					notification: colors.FONT
-  				}
-  			}}>
-  				<Stack.Navigator headerMode={'none'}>
-  					{
-  						RootNavigations.map(route => (
-  							<Stack.Screen key={route.name} name={route.name} component={route.component} />
-  						))
-  					}
-  				</Stack.Navigator>
-  			</NavigationContainer>
+    const {showOnboarding} = this.context;
     
-  			
-  		</>
-  	);
+    const isAuthorized = authStore.isAuthorized;
+    
+    const firstScreen = showOnboarding
+      ? Navigations.Onboarding
+      : isAuthorized ? Navigations.Main : Navigations.Auth;
+    
+    return (
+      <>
+        <NavigationContainer ref={navigationRef} theme={{
+          dark: false,
+          colors: {
+            primary: COLORS.PRIMARY,
+            background: COLORS.MAIN_BG,
+            card: COLORS.MAIN_BG,
+            text: COLORS.FONT,
+            border: COLORS.BORDER,
+            notification: COLORS.PRIMARY,
+          }
+        }}>
+          <Stack.Navigator screenOptions={{
+            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS
+          }} headerMode={'none'} initialRouteName={showOnboarding ? Navigations.Onboarding : firstScreen}>
+             {
+              navigations.map(route => (
+                <Stack.Screen options={{ headerStyleInterpolator: forFade }} key={route.name} name={route.name} component={route.component}/>
+              ))
+            }
+          </Stack.Navigator>
+        </NavigationContainer>
+        
+        <LoadingBig loading={loadingStore.loading}/>
+        <Message show={noticeMessageStore.show} text={noticeMessageStore.text} type={noticeMessageStore.type} />
+      </>
+    );
   }
 }
 

@@ -1,111 +1,124 @@
 import React, {Component, ReactElement} from 'react';
-import {Provider} from 'mobx-react';
 import Container from '@navigations/Container';
 import {Splash} from '@modules';
-import {ChangeColorsIN, defaultColors, ThemeContext} from '@styles/base';
+import {COLORS} from '@styles/base';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {StatusBar} from 'react-native';
-import {loadingStore, noticeMessageStore, modalStore} from '@stores';
+import {Platform, StatusBar} from 'react-native';
+import {OnboardingContext} from './context';
+import {authStore, exclusiveStore, loadingStore, modalStore, noticeMessageStore} from '@stores';
+import {observer, Provider} from 'mobx-react';
 
 const stores = {
-	loadingStore,
-	noticeMessageStore,
-	modalStore,
+  loadingStore,
+  noticeMessageStore,
+  modalStore,
+  authStore,
+  exclusiveStore
 };
+
+class WithStores extends Component {
+  render() {
+    return <Provider {...stores}>{this.props.children}</Provider>;
+  }
+}
+
+@observer
+class WithAuthCheck extends Component<{
+  hideSplash: () => void
+}> {
+  state = {
+    showIntro: false
+  };
+  
+  componentDidMount() {
+    authStore.getAuthData()
+      .then(() => {
+        this.props.hideSplash();
+      })
+  }
+  
+  render(): ReactElement {
+    return (
+      <>
+        {this.props.children}
+      </>
+    );
+  }
+}
+
+class WithOnboarding extends Component<{
+  hideSplash: () => void
+}> {
+  state = {
+    showIntro: false
+  };
+  
+  componentDidMount() {
+    this.getShowIntroFromStorage();
+  }
+  
+  getShowIntroFromStorage() {
+    AsyncStorage.getItem('showOnboarding')
+      .then(res => {
+        setTimeout(() => {
+          this.setState({showOnboarding: res === null}, () => {
+            this.props.hideSplash();
+          });
+        }, 1000);
+      })
+      .catch(e => {
+        console.log('getShowIntroFromStorage error: ', e);
+      });
+  }
+  
+  hideIntro() {
+    const jsonValue = JSON.stringify(false);
+    AsyncStorage.setItem('showOnboarding', jsonValue)
+      .then(res => {
+        console.log('Hide intro: ', res);
+      })
+      .catch(e => {
+        console.log('Hide intro error: ', e);
+      });
+  }
+  
+  render(): ReactElement {
+    return (
+      <OnboardingContext.Provider
+        value={{
+          showOnboarding: this.state.showIntro,
+          hideOnboarding: () => this.hideIntro()
+        }}>
+        {this.props.children}
+      </OnboardingContext.Provider>
+    );
+  }
+}
 
 class App extends Component {
   state = {
-  	load: true,
-  	colors: defaultColors,
-  	showIntro: false,
+    onBoardingLoded: false,
+    authCheckLoaded: false
   };
-
-  async componentDidMount() {
-  	// await AsyncStorage.clear();
-  	await this.getDataIntro();
-  	await this.getData();
-  }
-
-  // СОХРАНЯЕМ В СОСТОЯНИЕ ЦВЕТА ИЗ ASYNC STORAGE ================================================
-  async getData() {
-  	try {
-  		const value = await AsyncStorage.getItem('colors');
-  		if (value === null) {
-  			const colors = JSON.stringify(defaultColors);
-  			await AsyncStorage.setItem('colors', colors);
-  		} else {
-  			this.setState({colors: JSON.parse(value)});
-  		}
-  		setTimeout(() => this.toggleLoad(), 1000);
-  	} catch (e) {
-  		this.toggleLoad();
-  	}
-  }
-
-  async getDataIntro() {
-  	try {
-  		const value = await AsyncStorage.getItem('showIntro');
-  		if (value === null) {
-  			this.setState({showIntro: true});
-  		}
-  	} catch (e) {}
-  }
-
-  // СОХРАНЯЕМ В ASYNC STORAGE НОВЫЕ ЦВЕТА ================================================
-  async storeData(value: ChangeColorsIN) {
-  	try {
-  		const jsonValue = JSON.stringify(value);
-  		await AsyncStorage.setItem('colors', jsonValue);
-  	} catch (e) {}
-  }
-
-  // МЕНЯЕМ ЦВЕТА И СОХРАНЯЕМ В ASYNC STORAGE ================================================
-  changeColors(colors: ChangeColorsIN) {
-  	colors = {
-  		...defaultColors,
-  		...colors,
-  	};
-  	this.setState({colors});
-  	this.storeData(colors);
-  }
-
-  // ВКЛЮЧАЕМ / ВЫКЛЮЧАЕМ ЗАГРУЗКУ
-  toggleLoad() {
-  	this.setState({load: !this.state.load});
-  }
-
-  async storeDataIntro() {
-  	try {
-  		const jsonValue = JSON.stringify(false);
-  		console.log(jsonValue);
-  		await AsyncStorage.setItem('showIntro', jsonValue);
-  	} catch (e) {}
-  }
-
-  hideIntro() {
-  	this.storeDataIntro();
-  }
-
+  
   render(): ReactElement {
-  	return (
-  		<>
-  			<StatusBar backgroundColor={this.state.colors.PRIMARY} barStyle={'light-content'} />
-  			<ThemeContext.Provider
-  				value={{
-  					colors: this.state.colors,
-  					showIntro: this.state.showIntro,
-  					changeColors: (colors: ChangeColorsIN) => this.changeColors(colors),
-  					hideIntro: () => this.hideIntro(),
-  				}}>
-  				{!this.state.load ? (
-  					<Provider {...stores}>
-  						<Container />
-  					</Provider>
-  				) : null}
-  				<Splash show={this.state.load} />
-  			</ThemeContext.Provider>
-  		</>
-  	);
+    const loading = !this.state.onBoardingLoded || !this.state.authCheckLoaded;
+  
+    return (
+      <>
+        <StatusBar backgroundColor={COLORS.PRIMARY} barStyle={Platform.OS === 'ios' ? 'dark-content' : 'light-content'}/>
+        <WithOnboarding hideSplash={() => this.setState({onBoardingLoded: true})}>
+          <WithAuthCheck hideSplash={() => this.setState({authCheckLoaded: true})}>
+            {!loading ? (
+              <WithStores>
+                <Container/>
+              </WithStores>
+            ) : null}
+            <Splash show={loading}/>
+          </WithAuthCheck>
+        </WithOnboarding>
+      </>
+    );
   }
 }
 

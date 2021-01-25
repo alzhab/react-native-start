@@ -1,5 +1,5 @@
 import {StyleProp} from 'react-native';
-import {Colors, ColorsIN, TextFamily, TextSize} from '@styles/base';
+import {Colors, TextFamily, TextSize} from '@styles/base';
 import {TextAlign} from '@types';
 
 export interface TextProps {
@@ -11,5 +11,7 @@ export interface TextProps {
   animated?: boolean,
   numberOfLines?: number,
   textAlign?: TextAlign,
-  full?: boolean
+  full?: boolean;
+  lineHeight?: number;
+  letterSpacing?: number
 }

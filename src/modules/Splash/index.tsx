@@ -1,71 +1,45 @@
-import React, {ReactElement, useContext, useEffect, useRef, useState} from 'react';
-import {ThemeContext} from '@styles/base';
-import {Animated} from 'react-native';
-import {WINDOW_WIDTH} from '@styles/mixins';
-import {Flex, Logo} from '@components';
+import React, {memo, ReactElement, useMemo} from 'react';
+import {AnimateItTiming, Flex} from '@components';
 import {AI, JC} from '@types';
+import LottieView from 'lottie-react-native';
+import {COLORS} from '@styles/base';
+import {StyleSheet} from 'react-native';
+import {WINDOW_HEIGHT} from '@styles/mixins';
 
-const Splash = (props: { show: boolean }): ReactElement => {
-	const {colors} = useContext(ThemeContext);
-	const anim = useRef(new Animated.Value(props.show ? 1 : 0)).current;
-	const [hide, setHide] = useState(false);
- 
-	const toggleAnim = () => {
-		Animated.timing(anim, {
-			toValue: props.show ? 1 : 0,
-			useNativeDriver: true,
-			duration: 300
-		}).start(({finished}) => {
-			if(finished && !props.show) {
-			  setHide(true)
-			}
-		});
-	};
- 
-	useEffect(() => {
-	  if(props.show) {
-			setHide(false)
-		}
-		toggleAnim();
-	}, [props.show]);
- 
-	const scale = anim.interpolate({
-		inputRange: [0, 1],
-		outputRange: [0, 1]
-	});
- 
-	const borderRadius = anim.interpolate({
-		inputRange: [0, 1],
-		outputRange: [WINDOW_WIDTH / 2, 0]
-	});
- 
-	const style = {
-		opacity: anim,
-		borderRadius,
-		transform: [{scale}]
-	};
- 
-	return hide ? <></> : (
-		<Flex animated ai={AI.center} jc={JC.center} size={1}
-			styles={[
-				style,
-				{
-					backgroundColor: colors.PRIMARY,
-					position: 'absolute',
-					top: 0,
-					left: 0,
-					right: 0,
-					bottom: 0
-				}
-			]}>
-			<Flex
-				ai={AI.center}
-				jc={JC.flexStart}
-			>
-				<Logo light/>
-			</Flex>
-		</Flex>
-	);
+const Splash = ({show}: { show: boolean }): ReactElement => {
+  
+  return (
+    <AnimateItTiming
+      remove
+      show={show}
+      style={[
+        StyleSheet.absoluteFill,
+        {
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: COLORS.SPLASH_BG
+        }
+      ]}
+      interpolations={[{
+        name: 'translateY',
+        outputRange: [WINDOW_HEIGHT, 0],
+        dir: 'from'
+      }]}
+    >
+      <Flex animated
+            ai={AI.center}
+            jc={JC.center}
+            size={1}>
+        <LottieView
+          style={{
+            width: '80%'
+          }}
+          source={require('@assets/images/onboarding-load.json')}
+          autoPlay
+          loop/>
+      </Flex>
+    </AnimateItTiming>
+  );
 };
 
-export default Splash;
+export default memo(Splash, (prev, next) => prev.show === next.show);

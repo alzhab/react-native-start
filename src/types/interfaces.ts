@@ -11,5 +11,5 @@ export interface NavigationProps {
 
 export interface IconProps {
   color?: string,
-  scale?: number
+  size?: number
 }
