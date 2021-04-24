@@ -1,6 +1,6 @@
 {
   "name": "app",
-  "displayName": "app",
+  "displayName": "Start",
   "ios": {
     "bundleIdentifier": "your bundle identifier",
     "supportsTablet": true

@@ -1,35 +1,30 @@
-import ImagePicker, {ImagePickerCustomButtonOptions, ImagePickerOptions} from 'react-native-image-picker';
+// @ts-ignore
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {
+  CameraOptions,
+  ImageLibraryOptions,
+  ImagePickerResponse,
+} from 'react-native-image-picker/src/types';
 
-export const getOptions = (
-	title = 'Select Image',
+export const getOptions = (title = 'Select Image'): any => {
+  return {
+    storageOptions: {
+      skipBackup: true,
+      path: 'images',
+      quality: 1,
+    },
+  };
+};
+
+export const pickImage = (
+  storage: 'camera' | 'library',
+  cb: (data: {uri: string; name: string; type: string}) => void,
 ) => {
-	return {
-		title,
-		storageOptions: {
-			skipBackup: true,
-			path: 'images',
-		},
-	};
-};
+  const func = storage === 'camera' ? launchCamera : launchImageLibrary;
 
-export const pickImage = (cb: (uri: string) => void, options: ImagePickerOptions = getOptions()) => {
-	ImagePicker.showImagePicker(options, (response) => {
-		console.log('Response = ', response);
-  
-		if (response.didCancel) {
-			console.log('User cancelled image picker');
-		} else if (response.error) {
-			console.log('ImagePicker Error: ', response.error);
-		} else if (response.customButton) {
-			console.log('User tapped custom button: ', response.customButton);
-		} else {
-			const source = { uri: response.uri };
-   
-			// You can also display the image using data:
-			// const source = { uri: 'data:image/jpeg;base64,' + response.data };
-   
-			cb(response.uri)
-		}
-	});
+  func({mediaType: 'photo'}, (response: ImagePickerResponse) => {
+    if (response.uri && response.type && response.fileName) {
+      cb({uri: response.uri, type: response.type, name: response.fileName});
+    }
+  });
 };
-

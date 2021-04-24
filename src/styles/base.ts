@@ -1,38 +1,21 @@
-export enum Colors {
-  PRIMARY = 'PRIMARY',
-  FONT = 'FONT',
-  FONT_SECOND = 'FONT_SECOND',
-  FONT_LIGHT = 'FONT_LIGHT',
-  MAIN_BG = 'MAIN_BG',
-  SECOND_BG = 'SECOND_BG',
-  SPLASH_BG = 'SPLASH_BG',
-  SPLASH_FONT = 'SPLASH_FONT',
-  BORDER = 'BORDER',
-  SUCCESS = 'SUCCESS',
-  ERROR = 'ERROR',
-}
+import {Platform, StatusBarProps} from 'react-native';
 
 export const COLORS = {
-	PRIMARY: '#53B175',
-	FONT: '#0D1904',
-  FONT_LIGHT: '#fff',
-  FONT_SECOND: '#7C7C7C',
-	MAIN_BG: '#FFF',
-  SECOND_BG: '#F2F3F2',
-  SPLASH_BG: '#53B175',
-  SPLASH_FONT: '#fff',
-  BORDER: '#E2E2E2',
+  PRIMARY: '#8F5F43',
+  MAIN_BG: '#FFFFFF',
   SUCCESS: '#3ebf35',
-  ERROR: '#e20e00'
-};
+  ERROR: '#e20e00',
 
-export enum TextSize {
-  small = 12,
-  medium = 16,
-  large = 18,
-  xlarge = 20,
-  extraLarge = 24,
-}
+  NEUTRAL_DARK: '#272422',
+  NEUTRAL_GRAY_DARK: '#9D9EA3',
+  NEUTRAL_GRAY: '#C9C9C9',
+  NEUTRAL_GRAY_LIGHT: '#F2F2F2',
+  NEUTRAL_LIGHT: '#FFFFFF',
+
+  SEMATIC_RED: '#DA2C2C',
+  SEMATIC_BROWN: '#390B12',
+  SEMATIC_YELLOW: '#FFC600',
+};
 
 export enum TextFamily {
   REGULAR = 'Muli-Regular',
@@ -40,3 +23,17 @@ export enum TextFamily {
   SEMIBOLD = 'Muli-SemiBold',
 }
 
+export const navigationColors = {
+  primary: COLORS.PRIMARY,
+  background: COLORS.MAIN_BG,
+  card: COLORS.MAIN_BG,
+  text: COLORS.NEUTRAL_DARK,
+  border: COLORS.NEUTRAL_DARK,
+  notification: COLORS.PRIMARY,
+};
+
+export const statusBarProps: StatusBarProps = {
+  translucent: Platform.OS === 'android',
+  backgroundColor: Platform.OS === 'ios' ? COLORS.PRIMARY : 'transparent',
+  barStyle: 'dark-content',
+};

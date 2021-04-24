@@ -1,19 +1,22 @@
 import {StyleProp} from 'react-native';
-import {Colors, TextFamily, TextSize} from '@styles/base';
+import {TextFamily} from '@styles/base';
 import {ButtonTypes} from '@types';
+import {ReactElement} from 'react';
 
 export interface ButtonProps {
   title?: string,
   full?: boolean,
-  size?: TextSize,
+  size?: number,
   family?: TextFamily,
   type?: ButtonTypes,
   styles?: StyleProp<any>,
   click: () => void,
   children?: any,
   solid?: boolean,
-  color?: Colors,
-  empty?: boolean
+  color?: string,
+  empty?: boolean,
+  icon?: ReactElement,
+  activeOpacity?: number
 }
 
 export interface ButtonStylesInterface {

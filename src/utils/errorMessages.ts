@@ -1,13 +1,13 @@
-const required = 'Поле обязательно для заполнения';
-const offertaReq = 'Офферта обязательна к соглашению';
-const email = 'Почта введена не верно';
-const phone = 'Не верный номер телефона';
-const matchPassword = 'Пароли не совпадают';
+const required = 'The field is required';
+const offertaReq = 'The offer is required';
+const email = 'The email address entered is incorrect';
+const phone = 'Wrong phone number';
+const matchPassword = "Passwords don't match";
 
 export default {
-	required,
-	offertaReq,
-	email,
-	phone,
-	matchPassword,
-}
+  required,
+  offertaReq,
+  email,
+  phone,
+  matchPassword,
+};

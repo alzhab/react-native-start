@@ -1,7 +1,12 @@
 import {scaleSize} from './mixins';
-import {Platform} from 'react-native';
+import {NativeModules, Platform} from 'react-native';
 
-export const CONTAINER_HOR_PADDING = scaleSize(25);
-export const TABBAR_HEIGHT = scaleSize(64);
-export const CONTAINER_VER_PADDING = scaleSize(Platform.OS === 'ios' ? 50 : 25);
+const {StatusBarManager} = NativeModules;
+
+export const CONTAINER_HOR_PADDING = scaleSize(20);
+export const CONTAINER_VER_TOP_PADDING = StatusBarManager.HEIGHT;
+export const TABBAR_HEIGHT = scaleSize(60);
 export const MODAL_HOR_PADDING = scaleSize(16);
+export const HEADER_PADDING = 15;
+export const HEADER_HEIGHT =
+  scaleSize(40) + CONTAINER_VER_TOP_PADDING + HEADER_PADDING;

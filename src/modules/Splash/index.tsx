@@ -17,13 +17,17 @@ const Splash = ({show}: { show: boolean }): ReactElement => {
         {
           justifyContent: 'center',
           alignItems: 'center',
-          backgroundColor: COLORS.SPLASH_BG
-        }
+          backgroundColor: COLORS.MAIN_BG
+        },
       ]}
       interpolations={[{
         name: 'translateY',
         outputRange: [WINDOW_HEIGHT, 0],
         dir: 'from'
+      }, {
+        name: 'opacity',
+        outputRange: [0, 1],
+        dir: 'both'
       }]}
     >
       <Flex animated

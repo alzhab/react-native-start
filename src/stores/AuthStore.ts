@@ -1,103 +1,135 @@
 import {action, makeAutoObservable} from 'mobx';
-import authApi, {UserLoginI, UserPostI} from '../api/auth.api';
+import authApi, {ILogin, IRegister, SignupData} from '../api/auth.api';
 import noticeMessageStore, {NoticeTypeEnum} from './NoticeMessageStore';
-import loadingStore from './LoadingStore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Navigations} from '@types';
-import navigate from '@navigations/RootNavigation';
-import {catchErrors} from '@utils';
+import {catchErrors, navigate} from '@utils';
+
+const dumbData = {
+  token: 'token',
+  userId: '1',
+};
 
 class AuthStore {
   private _authData = {token: '', userId: ''};
-  private _isAuthorizaed = false;
-  
+  private _isAuthorized = false;
+  private _loading = false;
+
   constructor() {
-    makeAutoObservable(this)
+    makeAutoObservable(this);
   }
-  
-  getAuthData() {
+
+  getAuthDataFromStorage() {
     return AsyncStorage.getItem('auth')
-      .then(res => {
+      .then((res) => {
         if (res !== null) {
           let data;
-          
+
           try {
-            data = JSON.parse(res)
+            data = JSON.parse(res);
           } catch (e) {
             return Promise.reject('parse auth data: ' + e);
           }
           this.authData = data;
-          
-          return data
+
+          return data;
         } else {
-          return null
+          return null;
         }
       })
-      .catch(e => {
+      .catch((e) => {
         return Promise.reject('get auth data from storage error: ' + e);
       });
   }
-  
-  setAuthData(data: {token: string, userId: string}) {
+
+  setAuthData(data: SignupData) {
     return AsyncStorage.setItem('auth', JSON.stringify(data))
       .then(() => {
         this.authData = data;
       })
-      .catch(e => {
+      .catch((e) => {
         return Promise.reject('set auth data to storage error: ' + e);
       });
   }
-  
-  @action signup(data: UserPostI) {
-    loadingStore.toggleLoading();
-    
-    return authApi.signup(data)
-      .then(data => {
+
+  @action signup(body: IRegister) {
+    this.loading = true;
+
+    /*return authApi
+      .signup(body)*/
+
+    return new Promise((res) => {
+      setTimeout(() => {
+        res(true);
+      }, 3000);
+    })
+      .then((data) => {
         if (data) {
-          this.setAuthData(data).then(() => {
-            noticeMessageStore.showMessage('Hello new user!', NoticeTypeEnum.success);
+          this.setAuthData(dumbData).then(() => {
+            noticeMessageStore.showMessage(
+              'Hello new user!',
+              NoticeTypeEnum.success,
+            );
             navigate(Navigations.Main);
-          })
+          });
         }
       })
       .catch(catchErrors.storeCatchError)
-      .finally(() => loadingStore.toggleLoading())
+      .finally(() => (this.loading = false));
   }
-  
-  @action login(data: UserLoginI) {
-    loadingStore.toggleLoading();
-    return authApi.login(data)
-      .then(data => {
+
+  @action login(body: ILogin) {
+    this.loading = true;
+    /* return authApi
+      .login(body)*/
+
+    return new Promise((res) => {
+      setTimeout(() => {
+        res(true);
+      }, 3000);
+    })
+      .then((data) => {
         if (data) {
-          this.setAuthData(data).then(() => {
-            noticeMessageStore.showMessage('Welcome back!', NoticeTypeEnum.success)
+          this.setAuthData(dumbData).then(() => {
+            noticeMessageStore.showMessage(
+              'Welcome back!',
+              NoticeTypeEnum.success,
+            );
             navigate(Navigations.Main);
-          })
+          });
         }
       })
       .catch(catchErrors.storeCatchError)
-      .finally(() => loadingStore.toggleLoading())
+      .finally(() => (this.loading = false));
   }
-  
+
   @action logout() {
     return this.setAuthData({token: '', userId: ''})
       .then(() => {
         navigate(Navigations.Auth);
       })
-      .catch(catchErrors.storeCatchError)
+      .catch(catchErrors.storeCatchError);
   }
-  
+
   get authData() {
-    return this._authData
+    return this._authData;
   }
-  
-  set authData(data: {token: string, userId: string}) {
-    this._isAuthorizaed = !!(data.token && data.userId);
-    this._authData = data
+
+  set authData(data: SignupData) {
+    this._isAuthorized = !!(data.token && data.userId);
+    this._authData = data;
   }
-  
+
   get isAuthorized() {
-    return this._isAuthorizaed
+    return this._isAuthorized;
+  }
+
+  set loading(val: boolean) {
+    this._loading = val;
+  }
+
+  get loading() {
+    return this._loading;
   }
 }
 

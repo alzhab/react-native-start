@@ -1,35 +1,38 @@
 import React, {ReactElement} from 'react';
 import {Props} from './interfaces';
-import {styles} from './styles';
-import {AnimateItTiming, Text} from '../../atoms';
+import {AnimateItTiming} from '../../atoms';
 import {StyleSheet} from 'react-native';
-import LottieView from "lottie-react-native";
-import {WINDOW_HEIGHT} from '@styles/mixins';
+import LottieView from 'lottie-react-native';
+import {COLORS} from '@styles/base';
 
 const Loading = (props: Props): ReactElement | null => {
   return (
-	  <AnimateItTiming
+    <AnimateItTiming
       remove
-      style={[StyleSheet.absoluteFill, styles.container]}
+      style={[
+        StyleSheet.absoluteFill,
+        {
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: COLORS.NEUTRAL_LIGHT,
+        },
+      ]}
       show={props.loading}
-      interpolations={[{
-	    dir: 'both',
-      name: 'opacity',
-      outputRange: [0, 1]
-    },{
-        dir: 'both',
-        name: 'opacity',
-        outputRange: [0, 1]
-      }]}>
+      interpolations={[
+        {
+          dir: 'both',
+          name: 'opacity',
+          outputRange: [0, 1],
+        },
+      ]}>
       <LottieView
-        style={{
-          width: '80%'
-        }}
+        style={{width: '40%'}}
         source={require('@assets/images/spinner.json')}
         autoPlay
-        loop/>
+        loop
+      />
     </AnimateItTiming>
-	);
+  );
 };
 
 export default Loading;

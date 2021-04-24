@@ -1,9 +1,8 @@
 import React from 'react';
 import AnimateItTiming from '../../atoms/AnimateItTiming';
 import {Text} from '../../atoms';
-import {scaleSize} from '@styles/mixins';
 
-const NotFound = (props: { show: boolean }) => {
+const NotFound = (props: {show: boolean}) => {
   return (
     <AnimateItTiming
       show={props.show}
@@ -15,15 +14,13 @@ const NotFound = (props: { show: boolean }) => {
       }}
       toConfig={{useNativeDriver: false}}
       fromConfig={{useNativeDriver: false}}
-      interpolations={[{
-        dir: 'both',
-        outputRange: [0, 1],
-        name: 'opacity'
-      }, {
-        dir: 'both',
-        outputRange: [100, 0],
-        name: 'translateY'
-      }]}>
+      interpolations={[
+        {
+          dir: 'both',
+          outputRange: [0, 1],
+          name: 'opacity',
+        },
+      ]}>
       <Text>Sorry, we not found anything :-(</Text>
     </AnimateItTiming>
   );

@@ -1,15 +1,20 @@
 import noticeMessageStore, {NoticeTypeEnum} from '../stores/NoticeMessageStore';
 
-const storeCatchError = (error: any) => {
+const storeCatchError = (error: any, call?: () => void) => {
   if (error.response) {
-    error = error.response.data
+    console.log('error: ', error);
+    error = error.response.data;
   } else {
-    error = {message: 'Something was wrong'}
+    error = {message: 'Something was wrong'};
   }
-  
+
+  if (call) {
+    call();
+  }
+
   noticeMessageStore.showMessage(error.message, NoticeTypeEnum.error);
 };
 
 export default {
-  storeCatchError
-}
+  storeCatchError,
+};

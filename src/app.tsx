@@ -1,122 +1,48 @@
 import React, {Component, ReactElement} from 'react';
-import Container from '@navigations/Container';
 import {Splash} from '@modules';
-import {COLORS} from '@styles/base';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Platform, StatusBar} from 'react-native';
-import {OnboardingContext} from './context';
-import {authStore, exclusiveStore, loadingStore, modalStore, noticeMessageStore} from '@stores';
-import {observer, Provider} from 'mobx-react';
+import {statusBarProps} from '@styles/base';
+import {StatusBar} from 'react-native';
+import {WithAuthCheck, WithOnboarding, WithStores} from './app-loads';
+import RootNavigation from './root-navigation';
 
-const stores = {
-  loadingStore,
-  noticeMessageStore,
-  modalStore,
-  authStore,
-  exclusiveStore
-};
+declare global {
+  interface FormDataValue {
+    uri: string;
+    name: string;
+    type: string;
+  }
 
-class WithStores extends Component {
-  render() {
-    return <Provider {...stores}>{this.props.children}</Provider>;
-  }
-}
-
-@observer
-class WithAuthCheck extends Component<{
-  hideSplash: () => void
-}> {
-  state = {
-    showIntro: false
-  };
-  
-  componentDidMount() {
-    authStore.getAuthData()
-      .then(() => {
-        this.props.hideSplash();
-      })
-  }
-  
-  render(): ReactElement {
-    return (
-      <>
-        {this.props.children}
-      </>
-    );
-  }
-}
-
-class WithOnboarding extends Component<{
-  hideSplash: () => void
-}> {
-  state = {
-    showIntro: false
-  };
-  
-  componentDidMount() {
-    this.getShowIntroFromStorage();
-  }
-  
-  getShowIntroFromStorage() {
-    AsyncStorage.getItem('showOnboarding')
-      .then(res => {
-        setTimeout(() => {
-          this.setState({showOnboarding: res === null}, () => {
-            this.props.hideSplash();
-          });
-        }, 1000);
-      })
-      .catch(e => {
-        console.log('getShowIntroFromStorage error: ', e);
-      });
-  }
-  
-  hideIntro() {
-    const jsonValue = JSON.stringify(false);
-    AsyncStorage.setItem('showOnboarding', jsonValue)
-      .then(res => {
-        console.log('Hide intro: ', res);
-      })
-      .catch(e => {
-        console.log('Hide intro error: ', e);
-      });
-  }
-  
-  render(): ReactElement {
-    return (
-      <OnboardingContext.Provider
-        value={{
-          showOnboarding: this.state.showIntro,
-          hideOnboarding: () => this.hideIntro()
-        }}>
-        {this.props.children}
-      </OnboardingContext.Provider>
-    );
+  interface FormData {
+    append(name: string, value: FormDataValue, fileName?: string): void;
+    set(name: string, value: FormDataValue, fileName?: string): void;
   }
 }
 
 class App extends Component {
   state = {
-    onBoardingLoded: false,
-    authCheckLoaded: false
+    onBoardingLoaded: false,
+    authCheckLoaded: false,
   };
-  
+
   render(): ReactElement {
-    const loading = !this.state.onBoardingLoded || !this.state.authCheckLoaded;
-  
+    const loading = !this.state.onBoardingLoaded || !this.state.authCheckLoaded;
+
     return (
       <>
-        <StatusBar backgroundColor={COLORS.PRIMARY} barStyle={Platform.OS === 'ios' ? 'dark-content' : 'light-content'}/>
-        <WithOnboarding hideSplash={() => this.setState({onBoardingLoded: true})}>
-          <WithAuthCheck hideSplash={() => this.setState({authCheckLoaded: true})}>
+        <StatusBar {...statusBarProps} />
+
+        <WithAuthCheck
+          hideSplash={() => this.setState({authCheckLoaded: true})}>
+          <WithOnboarding
+            hideSplash={() => this.setState({onBoardingLoaded: true})}>
             {!loading ? (
               <WithStores>
-                <Container/>
+                <RootNavigation />
               </WithStores>
             ) : null}
-            <Splash show={loading}/>
-          </WithAuthCheck>
-        </WithOnboarding>
+            <Splash show={loading} />
+          </WithOnboarding>
+        </WithAuthCheck>
       </>
     );
   }

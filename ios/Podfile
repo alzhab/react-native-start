@@ -1,6 +1,8 @@
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
+pod 'lottie-ios'
+
 platform :ios, '10.0'
 
 target 'app' do
@@ -9,9 +11,11 @@ target 'app' do
   use_react_native!(:path => config["reactNativePath"])
 
 
-  pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
 
-  pod 'RNCMaskedView', :path => '../node_modules/@react-native-community/masked-view'
+
+
+
+
 
   target 'appTests' do
     inherit! :complete

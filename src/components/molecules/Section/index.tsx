@@ -6,21 +6,27 @@ import {Flex, Text} from '../../atoms';
 
 const Section = (props: Props) => {
   return (
-    <Flex full styles={{marginBottom: scaleSize(props.bottom || 30)}}>
-      <Flex full
-            container={props.headerContainer}
-            dir={DIR.row}
-            ai={AI.center}
-            jc={JC.spaceBetween}
-            styles={{marginBottom: scaleSize(props.headerBottom || scaleSize(17))}}>
-        <Text size={20}>{props.title}</Text>
-        
-        <Flex container={props.contentContainer}>
-          {props.right}
-        </Flex>
+    <Flex
+      full
+      styles={{
+        marginBottom: scaleSize(props.bottom || 30),
+        ...(props.style || {}),
+      }}>
+      <Flex
+        full
+        containerHor={props.headerContainer}
+        dir={DIR.row}
+        ai={AI.center}
+        jc={JC.spaceBetween}
+        styles={{marginBottom: scaleSize(props.headerBottom || scaleSize(17))}}>
+        <Text size={18}>{props.title}</Text>
+
+        <Flex>{props.right}</Flex>
       </Flex>
-      
-      {props.children}
+
+      <Flex full containerHor={props.contentContainer}>
+        {props.children}
+      </Flex>
     </Flex>
   );
 };

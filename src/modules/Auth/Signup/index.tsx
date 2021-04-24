@@ -1,52 +1,65 @@
-import React, {Component} from 'react';
-import {Button, Flex, Text} from '@components';
-import {FormHeader, Header} from '../components';
-import {scaleSize, WINDOW_WIDTH} from '@styles/mixins';
-import {Colors} from '@styles/base';
-import {AI, ButtonTypes, NavigationProps, Navigations} from '@types';
-import AnimateItTiming from '../../../components/atoms/AnimateItTiming';
-import {Form} from './component';
-import {Props, SubmitData} from './component/Form/interfaces';
+import React from 'react';
 import {observer} from 'mobx-react';
+import {Button, Flex, FormGenerator, HeaderScroll, Loading} from '@components';
+import {ButtonTypes, Navigations} from '@types';
+import {useForm} from 'react-hook-form';
+import {COLORS} from '@styles/base';
+import {
+  defaultValues,
+  fields,
+  headerProps,
+  signinTitle,
+  submitTitle,
+} from './constants';
 import {authStore} from '@stores';
+import {navigate} from '@utils';
 
-@observer
-class Login extends Component<NavigationProps> {
-  state = {
-    email: '',
-    password: '',
+const Signup = () => {
+  const {
+    control,
+    handleSubmit,
+    errors,
+    formState: {isValid},
+    getValues,
+  } = useForm({
+    reValidateMode: 'onChange',
+    mode: 'onChange',
+    defaultValues: defaultValues(),
+  });
+
+  const submit = () => {
+    const values = getValues();
+    authStore.signup(values);
   };
-  
-  submit(data: SubmitData) {
-    authStore.signup(data)
-  }
-  
-  render() {
-    return (
-      <AnimateItTiming
-        style={{width: '100%', backgroundColor: '#FCFCFC', flex: 1}}
-        interpolations={[{
-          name: 'translateY',
-          outputRange: [WINDOW_WIDTH, 0],
-          dir: 'to'
-        }]}>
-        <>
-          <Header />
-    
-          <Flex container full size={1}>
-            <FormHeader title='Sign Up' desc='Enter your credentials to continue'/>
-    
-            <Form submit={(data) => this.submit(data)} />
-  
-            <Button empty type={ButtonTypes.EMPTY} styles={{marginTop: scaleSize(25)}}
-                    click={() => this.props.navigation.navigate(Navigations.Login)} full>
-              <Text>Already have an account? <Text color={Colors.PRIMARY}>Sign in</Text></Text>
-            </Button>
-          </Flex>
-        </>
-      </AnimateItTiming>
-    );
-  }
-}
 
-export default Login;
+  return (
+    <>
+      <HeaderScroll headerProps={headerProps} containerBottom containerHor>
+        <Flex full size={1}>
+          <FormGenerator control={control} errors={errors} fields={fields} />
+        </Flex>
+
+        <Button
+          type={isValid ? ButtonTypes.PRIMARY : ButtonTypes.DISABLED}
+          size={16}
+          click={handleSubmit(submit)}
+          full
+          title={submitTitle}
+        />
+        <Button
+          type={ButtonTypes.EMPTY}
+          size={16}
+          click={() => navigate(Navigations.Auth_SignIn)}
+          full
+          styles={{marginTop: 10}}
+          color={COLORS.PRIMARY}
+          title={signinTitle}
+        />
+      </HeaderScroll>
+
+      <Loading show={authStore.loading} />
+    </>
+  );
+};
+
+export default observer(Signup);

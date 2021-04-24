@@ -1,0 +1,13 @@
+import {StackNavigationProp} from '@react-navigation/stack/lib/typescript/src/types';
+import {RouteProp} from '@react-navigation/native';
+import {Navigations} from '@types';
+
+export interface NavigationProps {
+  route: RouteProp<any, any>;
+  navigation: StackNavigationProp<any, any>;
+}
+
+export interface Route {
+  name: Navigations;
+  component: any;
+}
