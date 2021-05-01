@@ -2,9 +2,9 @@ import React, {memo, ReactElement, useMemo} from 'react';
 import {AnimateItTiming, Flex} from '@components';
 import {AI, JC} from '@types';
 import LottieView from 'lottie-react-native';
-import {COLORS} from '@styles/base';
+import {COLORS} from '@config/base';
 import {StyleSheet} from 'react-native';
-import {WINDOW_HEIGHT} from '@styles/mixins';
+import {WINDOW_HEIGHT} from '@config/mixins';
 
 const Splash = ({show}: { show: boolean }): ReactElement => {
   
@@ -17,7 +17,7 @@ const Splash = ({show}: { show: boolean }): ReactElement => {
         {
           justifyContent: 'center',
           alignItems: 'center',
-          backgroundColor: COLORS.MAIN_BG
+          backgroundColor: COLORS.BG.MAIN
         },
       ]}
       interpolations={[{
@@ -38,7 +38,7 @@ const Splash = ({show}: { show: boolean }): ReactElement => {
           style={{
             width: '80%'
           }}
-          source={require('@assets/images/onboarding-load.json')}
+          source={require('@assets/lottie/onboarding-load.json')}
           autoPlay
           loop/>
       </Flex>

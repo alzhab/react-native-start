@@ -1,0 +1,38 @@
+{
+  "colors": {
+    "PRIMARY": {
+      "MAIN": "#E09178",
+      "SECOND": "#E09178",
+      "TRETIARY": "#E09178"
+    },
+    "BG": {
+      "MAIN": "#FFFFFF",
+      "SECOND": "#ECECEC",
+      "TRETIARY": "#FFFDFA"
+    },
+    "TEXT": {
+      "MAIN": "#615750",
+      "SECOND": "#BBB9BB",
+      "TRETIARY": "#fff"
+    },
+    "BORDER": {
+      "MAIN": "#EEEEEE",
+      "SECOND": "#F2F2F2",
+      "TRETIARY": "#F2F2F2"
+    },
+    "OTHER": {
+      "ERROR": "#e20e00",
+      "SUCCESS": "#3ebf35"
+    }
+  },
+  "navigation": [
+    {
+      "name": "Main",
+      "routes": [
+        {
+          "name": "Home"
+        }
+      ]
+    }
+  ]
+}

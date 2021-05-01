@@ -3,13 +3,13 @@ import {Flex} from '../../atoms';
 import {Header, Loading} from '../../molecules';
 import {RefreshControl, ScrollView} from 'react-native';
 import {Props} from '../../molecules/Header';
-import {WINDOW_HEIGHT} from '@styles/mixins';
+import {WINDOW_HEIGHT} from '@config/mixins';
 import {
   CONTAINER_VER_TOP_PADDING,
   HEADER_HEIGHT,
   TABBAR_HEIGHT,
-} from '@styles/spacing';
-import {COLORS} from '@styles/base';
+} from '@config/spacing';
+import {COLORS} from '@config/base';
 import Empty from '../Empty';
 
 const HeaderScroll = (props: {
@@ -25,6 +25,7 @@ const HeaderScroll = (props: {
   scrollHeader?: any;
   onScroll?: (y: number) => void;
   minHeight?: number;
+  bg?: string;
 }) => {
   const [showShadow, setShowShadow] = useState(false);
   const HEIGHT = props.minHeight || WINDOW_HEIGHT;
@@ -49,7 +50,11 @@ const HeaderScroll = (props: {
   if (props.loading) return <Loading show={true} />;
 
   return (
-    <Flex size={1} full>
+    <Flex
+      size={1}
+      full
+      styles={{backgroundColor: props.bg ? props.bg : COLORS.BG.MAIN}}>
+      
       <Header showShadow={showShadow} {...props.headerProps} />
 
       <ScrollView
@@ -58,8 +63,8 @@ const HeaderScroll = (props: {
             <RefreshControl
               refreshing={props.refreshLoading || false}
               onRefresh={props.refresh}
-              colors={[COLORS.PRIMARY]}
-              tintColor={COLORS.PRIMARY}
+              colors={[COLORS.PRIMARY.MAIN]}
+              tintColor={COLORS.PRIMARY.MAIN}
             />
           ) : undefined
         }
@@ -70,7 +75,6 @@ const HeaderScroll = (props: {
         stickyHeaderIndices={props.scrollHeader ? [0] : []}
         style={{
           width: '100%',
-          paddingTop: 20,
         }}
         contentContainerStyle={{
           minHeight,

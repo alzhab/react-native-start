@@ -1,10 +1,10 @@
 import React, {ReactElement} from 'react';
 import Svg, {Path} from 'react-native-svg';
 import {IconProps} from '@types';
-import {COLORS} from '@styles/base';
+import {COLORS} from '@config/base';
 
 const Icon = (props: IconProps): ReactElement => {
-  const color = props.color || COLORS.NEUTRAL_DARK;
+  const color = props.color || COLORS.TEXT.MAIN;
 
   const size = props.sizeHeight;
   const width = 12;

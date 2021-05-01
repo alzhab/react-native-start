@@ -1,11 +1,11 @@
 import React, {ReactElement} from 'react';
-import {AnimateItTiming, Flex} from '../../atoms';
+import {AnimateItTiming, Flex, Text} from '../../atoms';
 import {Button} from '../../molecules';
-import {COLORS} from '@styles/base';
+import {COLORS} from '@config/base';
 import {ButtonTypes, DIR, IconProps, JC, Navigations} from '@types';
-import {boxShadow, WINDOW_WIDTH} from '@styles/mixins';
+import {boxShadow} from '@config/mixins';
 import {BottomTabBarProps} from '@react-navigation/bottom-tabs/lib/typescript/src/types';
-import {TABBAR_HEIGHT} from '@styles/spacing';
+import {TABBAR_BOTTOM, TABBAR_HEIGHT} from '@config/spacing';
 
 const BottomBar = (props: BottomTabBarProps) => {
   const routes = props.state.routes;
@@ -24,10 +24,10 @@ const BottomBar = (props: BottomTabBarProps) => {
       full
       dir={DIR.row}
       jc={JC.spaceBetween}
-      containerHor
       styles={{
         height: TABBAR_HEIGHT,
-        backgroundColor: COLORS.MAIN_BG,
+        backgroundColor: COLORS.BG.MAIN,
+        paddingBottom: TABBAR_BOTTOM,
         ...boxShadow(),
       }}>
       {routes.map((route) => {
@@ -41,13 +41,15 @@ const BottomBar = (props: BottomTabBarProps) => {
           <Button
             key={route.name}
             styles={{
-              paddingHorizontal: 12,
-              paddingVertical: 11,
               position: 'relative',
-              width: WINDOW_WIDTH / 5 - 12 * 2,
+              width: '25%',
+              flexDirection: 'column',
             }}
             type={ButtonTypes.EMPTY}
-            click={() => navigate(Navigations[route.name], route.key)}>
+            paddings={{top: 15, right: 0}}
+            click={() => {
+              navigate(Navigations[route.name], route.key);
+            }}>
             <AnimateItTiming
               show={isActive}
               interpolations={[
@@ -59,19 +61,26 @@ const BottomBar = (props: BottomTabBarProps) => {
               ]}
               style={{
                 position: 'absolute',
-                left: -12,
-                right: -12,
-                top: -11,
-                height: 3,
-                backgroundColor: COLORS.PRIMARY,
+                width: 50,
+                left: 50 / 2,
+                bottom: 0,
+                height: 2,
+                backgroundColor: COLORS.PRIMARY.MAIN,
               }}>
               <></>
             </AnimateItTiming>
 
             <Icon
-              color={isActive ? COLORS.PRIMARY : COLORS.NEUTRAL_GRAY_DARK}
+              color={isActive ? COLORS.PRIMARY.MAIN : COLORS.TEXT.SECOND}
               sizeHeight={24}
             />
+
+            <Text
+              size={12}
+              styles={{marginTop: 10}}
+              color={isActive ? COLORS.PRIMARY.MAIN : COLORS.TEXT.SECOND}>
+              {options.title}
+            </Text>
           </Button>
         );
       })}

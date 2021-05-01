@@ -2,8 +2,8 @@ import React from 'react';
 import {Flex, Text} from '../../atoms';
 import {AI, DIR, JC} from '@types';
 import {TouchableOpacity} from 'react-native';
-import {scaleSize} from '@styles/mixins';
-import {COLORS} from '@styles/base';
+import {horizontalScale} from '@config/mixins';
+import {COLORS} from '@config/base';
 import {FlexProps} from '../../atoms/Flex/interface';
 
 interface IProps {
@@ -19,12 +19,12 @@ const Radio = (props: FlexProps & IProps) => {
         <Text size={16}>{props.label}</Text>
         <Flex
           styles={{
-            width: scaleSize(20),
-            height: scaleSize(20),
-            borderRadius: scaleSize(3),
+            width: horizontalScale(20),
+            height: horizontalScale(20),
+            borderRadius: horizontalScale(3),
             backgroundColor: props.checked
-              ? COLORS.PRIMARY
-              : COLORS.NEUTRAL_GRAY_DARK,
+              ? COLORS.PRIMARY.MAIN
+              : COLORS.BG.SECOND,
           }}
         />
       </Flex>

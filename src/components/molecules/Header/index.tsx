@@ -1,39 +1,30 @@
-import React, {ReactElement, useEffect, useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {AI, DIR, JC, TextAlign, TextFamily} from '@types';
-import {COLORS} from '@styles/base';
+import {COLORS} from '@config/base';
 import {Flex, Text} from '../../atoms';
 import {
-  CONTAINER_VER_TOP_PADDING,
   HEADER_HEIGHT,
-  HEADER_PADDING,
-} from '@styles/spacing';
+  HEADER_PADDING_BOTTOM,
+  HEADER_PADDING_TOP,
+  STATUS_BAR_HEIGHT,
+} from '@config/spacing';
 import {useNavigation} from '@react-navigation/native';
 import {BackIcon} from '@icons';
-import {Animated, StyleProp, TouchableOpacity} from 'react-native';
+import {Animated, TouchableOpacity} from 'react-native';
 
 export interface Props {
   title?: string;
   right?: any;
   back?: boolean;
-  transparent?: boolean;
   showShadow?: boolean;
   containerHor?: boolean;
   absolute?: boolean;
-}
-
-function usePrevious(value: any) {
-  const ref = useRef();
-  useEffect(() => {
-    ref.current = value;
-  });
-  return ref.current;
 }
 
 const Header = ({
   title = '',
   right = null,
   back = false,
-  transparent = false,
   showShadow,
   containerHor = true,
   absolute = false,
@@ -64,11 +55,6 @@ const Header = ({
     outputRange: [0, 4],
   });
 
-  const background = anim.interpolate({
-    inputRange: [0, 1],
-    outputRange: ['rgba(255, 255, 255, 0)', 'rgba(255, 255, 255, 1)'],
-  });
-
   return (
     <Flex
       full
@@ -80,9 +66,8 @@ const Header = ({
       styles={[
         {
           zIndex: 100,
-          backgroundColor: transparent ? background : COLORS.MAIN_BG,
-          paddingTop: CONTAINER_VER_TOP_PADDING + HEADER_PADDING,
-          paddingBottom: HEADER_PADDING,
+          paddingTop: STATUS_BAR_HEIGHT,
+          paddingBottom: HEADER_PADDING_BOTTOM,
           height: HEADER_HEIGHT,
           maxHeight: HEADER_HEIGHT,
           shadowColor: '#000',

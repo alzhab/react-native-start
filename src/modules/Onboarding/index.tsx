@@ -6,8 +6,8 @@ import {slides, text} from './constants';
 import {Slide} from './components';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 import {ISlide} from './components/Slide';
-import {WINDOW_WIDTH} from '@styles/mixins';
-import {COLORS} from '@styles/base';
+import {WINDOW_WIDTH} from '@config/mixins';
+import {COLORS} from '@config/base';
 import {navigate} from '@utils';
 import {onboardingStore} from '@stores';
 
@@ -41,7 +41,7 @@ const Onboarding = (): ReactElement => {
           dotsLength={slides.length}
           activeDotIndex={activeIndex}
           inactiveDotScale={1}
-          dotStyle={{backgroundColor: COLORS.PRIMARY}}
+          dotStyle={{backgroundColor: COLORS.PRIMARY.MAIN}}
           inactiveDotStyle={{backgroundColor: COLORS.NEUTRAL_GRAY}}
           dotContainerStyle={{marginHorizontal: 4}}
         />

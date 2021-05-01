@@ -3,7 +3,7 @@ import {Props} from './interfaces';
 import {AnimateItTiming} from '../../atoms';
 import {StyleSheet} from 'react-native';
 import LottieView from 'lottie-react-native';
-import {COLORS} from '@styles/base';
+import {COLORS} from '@config/base';
 
 const Loading = (props: Props): ReactElement | null => {
   return (
@@ -14,7 +14,7 @@ const Loading = (props: Props): ReactElement | null => {
         {
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: COLORS.NEUTRAL_LIGHT,
+          backgroundColor: COLORS.BG.SECOND,
         },
       ]}
       show={props.loading}
@@ -27,7 +27,7 @@ const Loading = (props: Props): ReactElement | null => {
       ]}>
       <LottieView
         style={{width: '40%'}}
-        source={require('@assets/images/spinner.json')}
+        source={require('@assets/lottie/spinner.json')}
         autoPlay
         loop
       />

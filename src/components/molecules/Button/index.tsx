@@ -1,107 +1,105 @@
 import React, {ReactElement} from 'react';
 import {ButtonProps, ButtonStylesInterface} from './interfaces';
 import {TouchableOpacity} from 'react-native';
-import {scaleSize} from '@styles/mixins';
-import {COLORS} from '@styles/base';
+import {boxShadow, horizontalScale} from '@config/mixins';
+import {COLORS} from '@config/base';
 import {Flex, Text} from '../../atoms';
-import {AI, ButtonTypes, DIR, JC, TextAlign, TextFamily} from '@types';
+import {ButtonTypes, TextAlign, TextFamily} from '@types';
+import {padding} from '@utils';
 
-const Index = (props: ButtonProps): ReactElement => {
-  const type = props.type || 'PRIMARY';
-  const shadow = {
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.32,
-    shadowRadius: 5.46,
-    elevation: 9,
-  };
-  const isUnpressed = props.type === 'UNPRESSED';
+const Index = ({
+  title,
+  icon,
+  iconPosition = 'left',
+  full,
+  size,
+  family,
+  type = ButtonTypes.PRIMARY,
+  styles,
+  click,
+  children,
+  color: propsColor,
+  activeOpacity,
+  borderRad,
+  paddings,
+}: ButtonProps): ReactElement => {
+  let shadowColor = COLORS.PRIMARY.MAIN;
 
-  const styles: ButtonStylesInterface = {
-    borderRadius: props.solid ? 0 : scaleSize(5),
+  const defaultStyles: ButtonStylesInterface = {
+    borderRadius: borderRad ? horizontalScale(borderRad) : horizontalScale(5),
     alignItems: 'center',
     justifyContent: 'center',
   };
-  let color = COLORS.NEUTRAL_LIGHT;
+
+  let color = COLORS.TEXT.TRETIARY;
 
   switch (type) {
     case ButtonTypes.PRIMARY:
-      color = COLORS.NEUTRAL_LIGHT;
-      styles.backgroundColor = COLORS.PRIMARY;
+      color = COLORS.TEXT.TRETIARY;
+      defaultStyles.backgroundColor = COLORS.PRIMARY.MAIN;
       break;
     case ButtonTypes.DISABLED:
-      color = COLORS.NEUTRAL_LIGHT;
-      styles.backgroundColor = COLORS.NEUTRAL_GRAY_DARK;
+      shadowColor = COLORS.BG.SECOND;
+      color = COLORS.TEXT.SECOND;
+      defaultStyles.backgroundColor = COLORS.BG.SECOND;
       break;
     case ButtonTypes.EMPTY:
-      styles.backgroundColor = 'transparent';
-      styles.borderWidth = 0;
-      styles.borderColor = 'transparent';
-      color = COLORS.NEUTRAL_DARK;
+      shadowColor = 'transparent';
+      defaultStyles.backgroundColor = 'transparent';
+      defaultStyles.borderWidth = 0;
+      defaultStyles.borderColor = 'transparent';
+      color = COLORS.TEXT.MAIN;
       break;
     case ButtonTypes.BORDERED:
-      styles.backgroundColor = 'transparent';
-      styles.borderWidth = 1;
-      styles.borderColor = COLORS.PRIMARY;
-      color = COLORS.PRIMARY;
+      defaultStyles.backgroundColor = 'transparent';
+      defaultStyles.borderWidth = 1;
+      defaultStyles.borderColor = COLORS.PRIMARY.MAIN;
+      color = COLORS.PRIMARY.MAIN;
       break;
-    case ButtonTypes.CIRCLE:
-      styles.borderRadius = 100;
-      styles.backgroundColor = COLORS.NEUTRAL_LIGHT;
-      styles.borderWidth = 1;
-      styles.borderColor = 'transparent';
-      color = COLORS.PRIMARY;
-      break;
-  }
-
-  if (props.full) {
-    styles.width = '100%';
   }
 
   return (
     <TouchableOpacity
       disabled={type === ButtonTypes.DISABLED}
-      activeOpacity={props.activeOpacity ? props.activeOpacity : 0.9}
+      activeOpacity={activeOpacity ? activeOpacity : 0.9}
       onPress={() => {
         if (type !== ButtonTypes.DISABLED) {
-          props.click();
+          click();
         }
       }}
       style={[
         {
-          paddingVertical:
-            props.empty || type === ButtonTypes.CIRCLE ? 0 : scaleSize(18),
-          paddingHorizontal:
-            props.empty || type === ButtonTypes.CIRCLE ? 0 : scaleSize(15),
+          width: full ? '100%' : null,
+          flexDirection: 'row',
         },
+        boxShadow(shadowColor),
+        defaultStyles,
         styles,
-        isUnpressed && shadow,
-        props.styles,
+        padding(paddings || {top: 18, right: 15}),
       ]}>
-      <Flex
-        dir={props.icon ? DIR.row : DIR.column}
-        full
-        ai={AI.center}
-        jc={JC.center}>
-        {props.icon ? (
-          <Flex styles={{marginRight: 14}}>{props.icon}</Flex>
-        ) : null}
+      {children ? (
+        children
+      ) : (
+        <>
+          {icon && iconPosition === 'left' ? (
+            <Flex styles={{marginRight: title ? 14 : 0}}>{icon}</Flex>
+          ) : null}
 
-        {props.title ? (
-          <Text
-            color={props.color || color}
-            size={props.size}
-            family={props.family || TextFamily.BOLD}
-            textAlign={TextAlign.center}>
-            {props.title}
-          </Text>
-        ) : null}
+          {title ? (
+            <Text
+              color={propsColor ? propsColor : color}
+              size={size}
+              family={family || TextFamily.BOLD}
+              textAlign={TextAlign.center}>
+              {title}
+            </Text>
+          ) : null}
 
-        {props.children ? props.children : null}
-      </Flex>
+          {icon && iconPosition === 'right' ? (
+            <Flex styles={{marginLeft: title ? 14 : 0}}>{icon}</Flex>
+          ) : null}
+        </>
+      )}
     </TouchableOpacity>
   );
 };

@@ -1,7 +1,7 @@
 import {ReactElement} from 'react';
 
 export interface InputContainerProps {
-  label: string;
+  // label: string;
   help?: string;
   error?: string;
   children?: any;

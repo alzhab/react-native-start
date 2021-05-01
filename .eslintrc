@@ -58,7 +58,7 @@
           ["@stores", "./src/stores/index.tsx"],
           ["@components", "./src/components/index.ts"],
           ["@modules", "./src/modules/index.tsx"],
-          ["@styles", "./src/styles"],
+          ["@config", "./src/config"],
           ["@utils", "./src/utils/index.tsx"],
           ["@types", "./src/types/index.ts"]
         ]

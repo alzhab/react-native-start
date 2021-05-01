@@ -1,7 +1,7 @@
 import React from 'react';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
-import {WINDOW_WIDTH} from '@styles/mixins';
-import {CONTAINER_HOR_PADDING} from '@styles/spacing';
+import {WINDOW_WIDTH} from '@config/mixins';
+import {CONTAINER_HOR_PADDING} from '@config/spacing';
 
 const width = WINDOW_WIDTH - CONTAINER_HOR_PADDING * 2;
 

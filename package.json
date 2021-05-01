@@ -10,7 +10,8 @@
     "lint": "tslint 'src/**/*.{ts.tsx}'",
     "clear:android": "cd android && ./gradlew clean && cd ..",
     "clear:ios": "cd ios && pod install && cd ..",
-    "clear": "npm run clear:android && npm run clear:ios"
+    "clear": "npm run clear:android && npm run clear:ios",
+    "gen:navigation": "npm start -s --prefix libs/navigation-generator"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.13.2",
@@ -39,6 +40,7 @@
     "react-native-linear-gradient": "^2.5.6",
     "react-native-masked-text": "^1.13.0",
     "react-native-reanimated": "^1.13.2",
+    "react-native-safe-area": "^0.5.1",
     "react-native-safe-area-context": "^3.1.8",
     "react-native-screens": "^2.18.1",
     "react-native-skeleton-placeholder": "^3.0.4",

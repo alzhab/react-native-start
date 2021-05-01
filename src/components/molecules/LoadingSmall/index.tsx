@@ -1,6 +1,5 @@
 import React from 'react';
 import AnimateItTiming from '../../atoms/AnimateItTiming';
-import {Text} from '../../atoms';
 import LottieView from 'lottie-react-native';
 import {StyleSheet} from 'react-native';
 
@@ -29,7 +28,7 @@ const LoadingSmall = (props: {show: boolean}) => {
       ]}>
       <LottieView
         style={{width: '50%'}}
-        source={require('@assets/images/spinner.json')}
+        source={require('@assets/lottie/spinner.json')}
         autoPlay
         loop
       />

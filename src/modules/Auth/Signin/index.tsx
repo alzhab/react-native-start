@@ -5,6 +5,7 @@ import {useForm} from 'react-hook-form';
 import {
   defaultValues,
   fields,
+  forgotPasswordTitle,
   headerProps,
   signupTitle,
   submitTitle,
@@ -12,7 +13,7 @@ import {
 import {authStore} from '@stores';
 import {observer} from 'mobx-react';
 import {LogoIcon} from '@icons';
-import {COLORS} from '@styles/base';
+import {COLORS} from '@config/base';
 import {navigate} from '@utils';
 
 const Signin = () => {
@@ -37,13 +38,26 @@ const Signin = () => {
 
   return (
     <>
-      <HeaderScroll headerProps={headerProps} containerBottom containerHor>
+      <HeaderScroll
+        bg={COLORS.BG.TRETIARY}
+        headerProps={headerProps}
+        containerBottom
+        containerHor>
         <Flex full size={0.3} ai={AI.center} jc={JC.center}>
-          <LogoIcon color={COLORS.PRIMARY} sizeHeight={80} />
+          <LogoIcon color={COLORS.PRIMARY.MAIN} sizeHeight={80} />
         </Flex>
 
-        <Flex full size={0.5} ai={AI.center} jc={JC.center}>
-          <FormGenerator control={control} errors={errors} fields={fields} />
+        <FormGenerator control={control} errors={errors} fields={fields} />
+
+        <Flex full ai={AI.flexEnd}>
+          <Button
+            type={ButtonTypes.EMPTY}
+            size={16}
+            click={() => navigate(Navigations.Auth_SignUp)}
+            color={COLORS.PRIMARY.MAIN}
+            title={forgotPasswordTitle}
+            paddings={{top: 16, right: 0}}
+          />
         </Flex>
 
         <Button
@@ -59,7 +73,7 @@ const Signin = () => {
           click={() => navigate(Navigations.Auth_SignUp)}
           full
           styles={{marginTop: 10}}
-          color={COLORS.PRIMARY}
+          color={COLORS.PRIMARY.MAIN}
           title={signupTitle}
         />
       </HeaderScroll>

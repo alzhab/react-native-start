@@ -3,8 +3,9 @@ import {Animated, LayoutChangeEvent, StyleProp, View} from 'react-native';
 import {FlexProps} from './interface';
 import {
   CONTAINER_HOR_PADDING,
+  CONTAINER_VER_BOTTOM_PADDING,
   CONTAINER_VER_TOP_PADDING,
-} from '@styles/spacing';
+} from '@config/spacing';
 
 const Flex = (props: FlexProps): ReactElement => {
   const styles: StyleProp<any> = {
@@ -39,7 +40,7 @@ const Flex = (props: FlexProps): ReactElement => {
               paddingTop: props.containerVer ? CONTAINER_VER_TOP_PADDING : 0,
               paddingBottom:
                 props.containerVer || props.containerBottom
-                  ? CONTAINER_VER_TOP_PADDING
+                  ? CONTAINER_VER_BOTTOM_PADDING
                   : 0,
             }
           : null,

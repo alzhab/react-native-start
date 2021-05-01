@@ -2,7 +2,7 @@ import React, {ReactElement} from 'react';
 import {Flex, Text} from '../../atoms';
 import {Card} from '../../molecules';
 import {AI, DIR, IconProps, JC, Navigations, TextFamily} from '@types';
-import {COLORS} from '@styles/base';
+import {COLORS} from '@config/base';
 import {TouchableOpacity} from 'react-native';
 import {ArrowRightIcon} from '@icons';
 import {navigate} from '@utils';
@@ -52,7 +52,7 @@ const renderItem = (item: ListItem, index: number, array: ListItem[]) => {
           styles={{
             paddingTop: 1,
             paddingBottom: 12,
-            borderBottomColor: COLORS.NEUTRAL_GRAY_LIGHT,
+            borderBottomColor: COLORS.BORDER.MAIN,
             borderBottomWidth: 1,
           }}>
           <Flex dir={DIR.row} ai={AI.center}>
@@ -61,7 +61,7 @@ const renderItem = (item: ListItem, index: number, array: ListItem[]) => {
                 styles={{marginRight: 12, width: 24}}
                 ai={AI.center}
                 jc={JC.center}>
-                <Icon color={COLORS.PRIMARY} sizeHeight={24} />
+                <Icon color={COLORS.PRIMARY.MAIN} sizeHeight={24} />
               </Flex>
             ) : null}
 
@@ -73,7 +73,7 @@ const renderItem = (item: ListItem, index: number, array: ListItem[]) => {
           <Flex>
             {item.right ? item.right : null}
             {item.navigate ? (
-              <ArrowRightIcon sizeHeight={14} color={COLORS.NEUTRAL_GRAY} />
+              <ArrowRightIcon sizeHeight={14} color={COLORS.TEXT.SECOND} />
             ) : null}
           </Flex>
         </Flex>

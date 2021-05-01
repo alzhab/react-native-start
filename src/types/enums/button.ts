@@ -1,8 +1,6 @@
 export enum ButtonTypes {
   PRIMARY = 'PRIMARY',
   BORDERED = 'BORDERED',
-  UNPRESSED = 'UNPRESSED',
   EMPTY = 'EMPTY',
   DISABLED = 'DISABLED',
-  CIRCLE = 'CIRCLE',
 }

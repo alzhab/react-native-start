@@ -12,7 +12,7 @@ import {
   onboardingStore,
 } from '@stores';
 import {navigationRef} from '../utils/navigate';
-import {NAVIGATION_COLORS} from '@styles/base';
+import {NAVIGATION_COLORS} from '@config/base';
 
 const navigations = [
   {

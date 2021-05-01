@@ -7,14 +7,12 @@ export const fields: IField[] = [
     required: true,
     pattern: validators.emailPattern,
     keyboardType: 'email-address',
-    label: 'Email address',
-    placeholder: 'Enter email address',
+    placeholder: 'Email',
   },
   {
     name: 'password',
     required: true,
-    label: 'Password',
-    placeholder: 'Enter password',
+    placeholder: 'Password',
     secureTextEntry: true,
   },
 ];
@@ -25,5 +23,6 @@ export const defaultValues = () => ({
 });
 
 export const headerProps = {title: 'Sign in'};
-export const submitTitle = 'Sign in';
-export const signupTitle = "Don't have an account yet? Sign Up";
+export const submitTitle = 'Login';
+export const signupTitle = 'New to Cacook? Sign Up';
+export const forgotPasswordTitle = 'Forgot password?';

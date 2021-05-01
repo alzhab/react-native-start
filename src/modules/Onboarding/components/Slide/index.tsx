@@ -1,8 +1,8 @@
 import React from 'react';
 import {Flex, Image, Text} from '@components';
 import {AI, JC, TextAlign, TextFamily} from '@types';
-import {scaleSize} from '@styles/mixins';
-import {COLORS} from '@styles/base';
+import {horizontalScale} from '@config/mixins';
+import {COLORS} from '@config/base';
 import {Source} from 'react-native-fast-image';
 
 export interface ISlide {
@@ -17,23 +17,23 @@ interface IProps {
 
 const Slide = (props: IProps) => {
   return (
-    <Flex size={1} full containerHor styles={{backgroundColor: COLORS.MAIN_BG}}>
+    <Flex size={1} full containerHor styles={{backgroundColor: COLORS.BG.MAIN}}>
       <Flex full size={1} ai={AI.center} jc={JC.center}>
         <Image resizeMode={'contain'} source={props.data.image} />
       </Flex>
       <Flex full size={0.52} ai={AI.center} jc={JC.center}>
         <Text
-          styles={{paddingBottom: scaleSize(15)}}
+          styles={{paddingBottom: horizontalScale(15)}}
           textAlign={TextAlign.center}
           size={20}
           family={TextFamily.SEMIBOLD}
-          color={COLORS.PRIMARY}>
+          color={COLORS.PRIMARY.MAIN}>
           {props.data.title}
         </Text>
 
         <Text
           textAlign={TextAlign.center}
-          color={COLORS.NEUTRAL_GRAY_DARK}
+          color={COLORS.TEXT.SECOND}
           lineHeight={22}>
           {props.data.text}
         </Text>

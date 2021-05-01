@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {AI, ButtonTypes, DIR, JC} from '@types';
-import {COLORS} from '@styles/base';
+import {COLORS} from '@config/base';
 import {Flex, Text} from '../../atoms';
 import {Button} from '../../molecules';
 
@@ -24,7 +24,7 @@ const AmountInput = () => {
       jc={JC.spaceAround}
       styles={{
         borderWidth: 1,
-        borderColor: COLORS.NEUTRAL_GRAY_DARK,
+        borderColor: COLORS.TEXT.SECOND,
         height: 30,
         width: 95,
         borderRadius: 4,
@@ -36,7 +36,7 @@ const AmountInput = () => {
         click={minus}
         title={'-'}
       />
-      <Text color={COLORS.PRIMARY} size={16} lineHeight={25}>
+      <Text color={COLORS.PRIMARY.MAIN} size={16} lineHeight={25}>
         {amount}
       </Text>
       <Button

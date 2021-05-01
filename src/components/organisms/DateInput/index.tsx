@@ -6,8 +6,8 @@ import DatePicker from 'react-native-date-picker';
 import {observer} from 'mobx-react';
 import {modalStore} from '@stores';
 import moment from 'moment';
-import {scaleSize} from '@styles/mixins';
-import {COLORS} from '@styles/base';
+import {horizontalScale} from '@config/mixins';
+import {COLORS} from '@config/base';
 import {CalendareIcon} from '@icons';
 import {InputContainerProps} from '../../molecules/InputContainer/interfaces';
 
@@ -43,21 +43,21 @@ const DateInput = (
           <Flex
             jc={JC.center}
             styles={{
-              paddingVertical: scaleSize(13),
-              paddingHorizontal: scaleSize(10),
+              paddingVertical: horizontalScale(13),
+              paddingHorizontal: horizontalScale(10),
               borderWidth: 1,
               borderColor: props.valid
-                ? COLORS.SUCCESS
+                ? COLORS.OTHER.SUCCESS
                 : props.error
-                ? COLORS.ERROR
-                : COLORS.NEUTRAL_GRAY_DARK,
+                ? COLORS.OTHER.ERROR
+                : COLORS.TEXT.SECOND,
               borderRadius: 8,
               width: '80%',
             }}>
             <Text
               lineHeight={18}
               size={18}
-              color={props.value ? COLORS.NEUTRAL_DARK : COLORS.NEUTRAL_GRAY}>
+              color={props.value ? COLORS.TEXT.MAIN : COLORS.TEXT.SECOND}>
               {props.value
                 ? moment(props.value).format('DD.MM.YYYY')
                 : 'DD.MM.YYYY'}

@@ -1,6 +1,6 @@
 import React from 'react';
 import {TouchableOpacity} from 'react-native';
-import {COLORS} from '@styles/base';
+import {COLORS} from '@config/base';
 import {Text} from '../../atoms';
 import {Card} from '../../molecules';
 import {CheckIcon} from '@icons';
@@ -10,7 +10,7 @@ const SelectList = ({
   select,
   value,
 }: {
-  list: {title: string, value: string}[];
+  list: {title: string; value: string}[];
   select: (value: string) => void;
   value: string;
 }) => {
@@ -29,12 +29,12 @@ const SelectList = ({
             paddingTop: 16,
             paddingBottom: 20,
             borderBottomWidth: 1,
-            borderBottomColor: COLORS.NEUTRAL_GRAY_LIGHT,
+            borderBottomColor: COLORS.BORDER.MAIN,
           }}>
           <Text>{item.title}</Text>
 
           {item.value === value ? (
-            <CheckIcon sizeHeight={14} color={COLORS.PRIMARY} />
+            <CheckIcon sizeHeight={14} color={COLORS.PRIMARY.MAIN} />
           ) : null}
         </TouchableOpacity>
       ))}

@@ -3,7 +3,7 @@ import {observer} from 'mobx-react';
 import {Button, Flex, FormGenerator, HeaderScroll, Loading} from '@components';
 import {ButtonTypes, Navigations} from '@types';
 import {useForm} from 'react-hook-form';
-import {COLORS} from '@styles/base';
+import {COLORS} from '@config/base';
 import {
   defaultValues,
   fields,
@@ -52,7 +52,7 @@ const Signup = () => {
           click={() => navigate(Navigations.Auth_SignIn)}
           full
           styles={{marginTop: 10}}
-          color={COLORS.PRIMARY}
+          color={COLORS.PRIMARY.MAIN}
           title={signinTitle}
         />
       </HeaderScroll>

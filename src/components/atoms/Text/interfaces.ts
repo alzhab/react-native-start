@@ -1,5 +1,5 @@
 import {StyleProp} from 'react-native';
-import {TextFamily} from '@styles/base';
+import {TextFamily} from '@config/base';
 import {TextAlign} from '@types';
 
 export interface TextProps {

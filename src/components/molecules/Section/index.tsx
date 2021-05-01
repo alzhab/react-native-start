@@ -1,7 +1,7 @@
 import React from 'react';
 import {Props} from './interfaces';
 import {AI, DIR, JC} from '@types';
-import {scaleSize} from '@styles/mixins';
+import {horizontalScale} from '@config/mixins';
 import {Flex, Text} from '../../atoms';
 
 const Section = (props: Props) => {
@@ -9,7 +9,7 @@ const Section = (props: Props) => {
     <Flex
       full
       styles={{
-        marginBottom: scaleSize(props.bottom || 30),
+        marginBottom: horizontalScale(props.bottom || 30),
         ...(props.style || {}),
       }}>
       <Flex
@@ -18,7 +18,7 @@ const Section = (props: Props) => {
         dir={DIR.row}
         ai={AI.center}
         jc={JC.spaceBetween}
-        styles={{marginBottom: scaleSize(props.headerBottom || scaleSize(17))}}>
+        styles={{marginBottom: horizontalScale(props.headerBottom || horizontalScale(17))}}>
         <Text size={18}>{props.title}</Text>
 
         <Flex>{props.right}</Flex>

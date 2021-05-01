@@ -3,7 +3,7 @@ import {AI, ButtonTypes, DIR} from '@types';
 import {Flex, Text} from '../../atoms';
 import {Button} from '../../molecules';
 import {StarIcon} from '@icons';
-import {COLORS} from '@styles/base';
+import {COLORS} from '@config/base';
 
 interface IProps {
   rating: 0 | 1 | 2 | 3 | 4 | 5;
@@ -16,11 +16,7 @@ const Star = ({isActive}: {isActive: boolean}) => {
       empty
       type={ButtonTypes.EMPTY}
       styles={{marginRight: 7}}>
-      <StarIcon
-        color={COLORS.SEMATIC_YELLOW}
-        sizeHeight={14}
-        active={isActive}
-      />
+      <StarIcon color={COLORS.PRIMARY.MAIN} sizeHeight={14} active={isActive} />
     </Button>
   );
 };

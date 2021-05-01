@@ -1,11 +1,10 @@
 import {StyleSheet} from 'react-native';
-import {scaleFont, scaleSize} from '@styles/mixins';
-import {COLORS} from '@styles/base';
+import {horizontalScale} from '@config/mixins';
 
 export const styles = StyleSheet.create({
   inputBox: {
     width: '100%',
     position: 'relative',
-    marginBottom: scaleSize(27),
+    marginBottom: horizontalScale(23),
   },
 });

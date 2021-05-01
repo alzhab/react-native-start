@@ -1,5 +1,5 @@
 import React from 'react';
-import {COLORS} from '@styles/base';
+import {COLORS} from '@config/base';
 import {Flex, Text} from '../../atoms';
 import {InputContainerProps} from './interfaces';
 import {styles} from './styles';
@@ -7,32 +7,22 @@ import {styles} from './styles';
 const InputContainer = (props: InputContainerProps) => {
   return (
     <Flex styles={[styles.inputBox]}>
-      <Text
-        styles={{marginBottom: 10}}
-        size={16}
-        color={
-          props.valid
-            ? COLORS.SUCCESS
-            : props.error
-            ? COLORS.ERROR
-            : COLORS.NEUTRAL_GRAY_DARK
-        }>
-        {props.label}
-      </Text>
-
       {props.children}
 
       {props.help && !props.error ? (
         <Text
-          styles={{marginTop: 15}}
+          styles={{bottom: -25, position: 'absolute'}}
           size={12}
-          color={COLORS.NEUTRAL_GRAY_DARK}>
+          color={COLORS.TEXT.SECOND}>
           {props.help}
         </Text>
       ) : null}
 
       {props.error ? (
-        <Text styles={{marginTop: 15}} size={12} color={COLORS.ERROR}>
+        <Text
+          styles={{bottom: -25, position: 'absolute'}}
+          size={12}
+          color={COLORS.OTHER.ERROR}>
           {props.error}
         </Text>
       ) : null}

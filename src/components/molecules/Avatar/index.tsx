@@ -1,5 +1,5 @@
 import React from 'react';
-import {COLORS} from '@styles/base';
+import {COLORS} from '@config/base';
 import {Flex, Image} from '../../atoms';
 import {Source} from 'react-native-fast-image';
 
@@ -15,7 +15,7 @@ const Avatar = (props: IProps) => {
         width: props.diameter,
         height: props.diameter,
         borderRadius: props.diameter,
-        backgroundColor: COLORS.NEUTRAL_LIGHT,
+        backgroundColor: COLORS.BG.SECOND,
         overflow: 'hidden',
       }}>
       <Image source={props.img} resizeMode={'cover'} />

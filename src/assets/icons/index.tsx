@@ -29,3 +29,5 @@ export {default as ShareIcon} from './share.icon';
 export {default as PlayIcon} from './play.icon';
 export {default as StarIcon} from './star.icon';
 export {default as ClockIcon} from './clock.icon';
+export {default as FacebookIcon} from './facebook.icon';
+export {default as ListIcon} from './list.icon';

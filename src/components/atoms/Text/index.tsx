@@ -1,8 +1,8 @@
 import React, {ReactElement} from 'react';
 import {Animated, Text} from 'react-native';
 import {TextProps} from './interfaces';
-import {COLORS} from '@styles/base';
-import {scaleFont} from '@styles/mixins';
+import {COLORS} from '@config/base';
+import {scaleFont} from '@config/mixins';
 import {TextAlign, TextFamily} from '@types';
 
 const MyText = (props: TextProps): ReactElement => {
@@ -13,7 +13,7 @@ const MyText = (props: TextProps): ReactElement => {
 
   const styles = {
     width: props.full ? '100%' : null,
-    color: props.color || COLORS.NEUTRAL_DARK,
+    color: props.color || COLORS.TEXT.MAIN,
     textAlign: props.textAlign || TextAlign.left,
     fontSize,
     fontFamily,
