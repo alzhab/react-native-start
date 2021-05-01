@@ -1,9 +1,9 @@
 import React, {ReactElement} from 'react';
 import {Animated, Text} from 'react-native';
 import {TextProps} from './interfaces';
-import {COLORS, TextFamily} from '@styles/base';
+import {COLORS} from '@styles/base';
 import {scaleFont} from '@styles/mixins';
-import {TextAlign} from '@types';
+import {TextAlign, TextFamily} from '@types';
 
 const MyText = (props: TextProps): ReactElement => {
   const fontSizeName = props.size || 14;

@@ -1,8 +1,8 @@
 import React from 'react';
 import {Flex, Image, Text} from '@components';
-import {AI, JC, TextAlign} from '@types';
+import {AI, JC, TextAlign, TextFamily} from '@types';
 import {scaleSize} from '@styles/mixins';
-import {COLORS, TextFamily} from '@styles/base';
+import {COLORS} from '@styles/base';
 import {Source} from 'react-native-fast-image';
 
 export interface ISlide {

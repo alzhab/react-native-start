@@ -1,6 +1,6 @@
 import React, {ReactElement, useEffect, useRef} from 'react';
-import {AI, DIR, JC, TextAlign} from '@types';
-import {COLORS, TextFamily} from '@styles/base';
+import {AI, DIR, JC, TextAlign, TextFamily} from '@types';
+import {COLORS} from '@styles/base';
 import {Flex, Text} from '../../atoms';
 import {
   CONTAINER_VER_TOP_PADDING,

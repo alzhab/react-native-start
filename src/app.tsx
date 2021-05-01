@@ -1,6 +1,6 @@
 import React, {Component, ReactElement} from 'react';
 import {Splash} from '@modules';
-import {statusBarProps} from '@styles/base';
+import {STATUSBAR_PROPS} from '@styles/base';
 import {StatusBar} from 'react-native';
 import {WithAuthCheck, WithOnboarding, WithStores} from './app-loads';
 import RootNavigation from './root-navigation';
@@ -29,7 +29,7 @@ class App extends Component {
 
     return (
       <>
-        <StatusBar {...statusBarProps} />
+        <StatusBar {...STATUSBAR_PROPS} />
 
         <WithAuthCheck
           hideSplash={() => this.setState({authCheckLoaded: true})}>

@@ -1,8 +1,8 @@
 import React, {ReactElement} from 'react';
 import {Flex, Text} from '../../atoms';
 import {Card} from '../../molecules';
-import {AI, DIR, IconProps, JC, Navigations} from '@types';
-import {COLORS, TextFamily} from '@styles/base';
+import {AI, DIR, IconProps, JC, Navigations, TextFamily} from '@types';
+import {COLORS} from '@styles/base';
 import {TouchableOpacity} from 'react-native';
 import {ArrowRightIcon} from '@icons';
 import {navigate} from '@utils';

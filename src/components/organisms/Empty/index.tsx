@@ -1,9 +1,10 @@
 import React from 'react';
-import {AI, ButtonTypes, JC, TextAlign} from '@types';
+import {AI, ButtonTypes, JC, TextAlign, TextFamily} from '@types';
 import Flex from '../../atoms/Flex';
 import {RefreshIcon, SadIcon} from '@icons';
-import {COLORS, TextFamily} from '@styles/base';
-import {Button, Text} from '@components';
+import {COLORS} from '@styles/base';
+import {Button} from '../../molecules';
+import {Text} from '../../atoms';
 
 interface IProps {
   refresh: () => void;

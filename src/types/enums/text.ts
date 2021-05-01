@@ -22,3 +22,9 @@ export enum TextAlign {
   center = 'center',
   right = 'right',
 }
+
+export enum TextFamily {
+  REGULAR = 'Muli-Regular',
+  BOLD = 'Muli-Bold',
+  SEMIBOLD = 'Muli-SemiBold',
+}

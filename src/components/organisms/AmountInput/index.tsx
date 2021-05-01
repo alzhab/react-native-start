@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import {AI, ButtonTypes, DIR, JC} from '@types';
 import {COLORS} from '@styles/base';
-import {Button, Flex, Text} from '@components';
+import {Flex, Text} from '../../atoms';
+import {Button} from '../../molecules';
 
 const AmountInput = () => {
   const [amount, setAmount] = useState(1);

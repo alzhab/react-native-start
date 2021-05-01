@@ -17,13 +17,7 @@ export const COLORS = {
   SEMATIC_YELLOW: '#FFC600',
 };
 
-export enum TextFamily {
-  REGULAR = 'Muli-Regular',
-  BOLD = 'Muli-Bold',
-  SEMIBOLD = 'Muli-SemiBold',
-}
-
-export const navigationColors = {
+export const NAVIGATION_COLORS = {
   primary: COLORS.PRIMARY,
   background: COLORS.MAIN_BG,
   card: COLORS.MAIN_BG,
@@ -32,8 +26,9 @@ export const navigationColors = {
   notification: COLORS.PRIMARY,
 };
 
-export const statusBarProps: StatusBarProps = {
+export const STATUSBAR_PROPS: StatusBarProps = {
   translucent: Platform.OS === 'android',
   backgroundColor: Platform.OS === 'ios' ? COLORS.PRIMARY : 'transparent',
   barStyle: 'dark-content',
 };
+

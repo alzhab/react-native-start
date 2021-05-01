@@ -2,9 +2,9 @@ import React, {ReactElement} from 'react';
 import {ButtonProps, ButtonStylesInterface} from './interfaces';
 import {TouchableOpacity} from 'react-native';
 import {scaleSize} from '@styles/mixins';
-import {COLORS, TextFamily} from '@styles/base';
+import {COLORS} from '@styles/base';
 import {Flex, Text} from '../../atoms';
-import {AI, ButtonTypes, DIR, JC, TextAlign} from '@types';
+import {AI, ButtonTypes, DIR, JC, TextAlign, TextFamily} from '@types';
 
 const Index = (props: ButtonProps): ReactElement => {
   const type = props.type || 'PRIMARY';

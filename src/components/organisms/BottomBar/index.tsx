@@ -1,5 +1,6 @@
 import React, {ReactElement} from 'react';
-import {AnimateItTiming, Button, Flex} from '@components';
+import {AnimateItTiming, Flex} from '../../atoms';
+import {Button} from '../../molecules';
 import {COLORS} from '@styles/base';
 import {ButtonTypes, DIR, IconProps, JC, Navigations} from '@types';
 import {boxShadow, WINDOW_WIDTH} from '@styles/mixins';
@@ -10,9 +11,9 @@ const BottomBar = (props: BottomTabBarProps) => {
   const routes = props.state.routes;
   const history = props.state.history;
   const descrptors = props.descriptors;
-  
+
   const activeKey = history[history.length - 1].key;
-  
+
   const navigate = (route: Navigations, key: string) => {
     if (activeKey !== key) {
       props.navigation.navigate(route);
@@ -35,7 +36,7 @@ const BottomBar = (props: BottomTabBarProps) => {
         // @ts-ignore
         const Icon: (props: IconProps) => ReactElement = options.Icon;
         const isActive = activeKey === key;
-        
+
         return (
           <Button
             key={route.name}
@@ -66,7 +67,7 @@ const BottomBar = (props: BottomTabBarProps) => {
               }}>
               <></>
             </AnimateItTiming>
-            
+
             <Icon
               color={isActive ? COLORS.PRIMARY : COLORS.NEUTRAL_GRAY_DARK}
               sizeHeight={24}

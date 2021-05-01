@@ -12,7 +12,7 @@ import {
   onboardingStore,
 } from '@stores';
 import {navigationRef} from '../utils/navigate';
-import {navigationColors} from '@styles/base';
+import {NAVIGATION_COLORS} from '@styles/base';
 
 const navigations = [
   {
@@ -50,7 +50,7 @@ class RootNavigation extends Component {
           ref={navigationRef}
           theme={{
             dark: false,
-            colors: navigationColors,
+            colors: NAVIGATION_COLORS,
           }}>
           <Stack.Navigator
             headerMode={'none'}
