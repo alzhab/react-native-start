@@ -1,15 +1,15 @@
-import Signin from './Signin';
-import Signup from './Signup';
 import {Navigations} from '@types';
 import {StackGenerator} from '@utils';
+import Signin from './Signin';
+import Signup from './Signup';
 
 const navigations = [
   {
-    name: Navigations.Auth_SignIn,
+    name: Navigations.Auth_Signin,
     component: Signin,
   },
   {
-    name: Navigations.Auth_SignUp,
+    name: Navigations.Auth_Signup,
     component: Signup,
   },
 ];

@@ -42,7 +42,7 @@ const Onboarding = (): ReactElement => {
           activeDotIndex={activeIndex}
           inactiveDotScale={1}
           dotStyle={{backgroundColor: COLORS.PRIMARY.MAIN}}
-          inactiveDotStyle={{backgroundColor: COLORS.NEUTRAL_GRAY}}
+          inactiveDotStyle={{backgroundColor: COLORS.BG.SECOND}}
           dotContainerStyle={{marginHorizontal: 4}}
         />
       </Flex>

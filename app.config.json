@@ -27,10 +27,75 @@
   },
   "navigation": [
     {
+      "name": "Onboarding"
+    },
+    {
+      "name": "Auth",
+      "routes": [
+        {
+          "name": "Signin"
+        },
+        {
+          "name": "Signup"
+        }
+      ]
+    },
+    {
       "name": "Main",
       "routes": [
         {
-          "name": "Home"
+          "name": "BottomBar",
+          "type": "bottombar",
+          "routes": [
+            {
+              "name": "Home_Stack",
+              "Icon": "HomeIcon",
+              "title": "My Feed",
+              "routes": [
+                {
+                  "name": "Home"
+                },
+                {
+                  "name": "Search"
+                },
+                {
+                  "name": "Filter"
+                },
+                {
+                  "name": "SearchResult"
+                }
+              ]
+            },
+            {
+              "name": "Favorites",
+              "Icon": "HeartIcon",
+              "title": "Favorites"
+            },
+            {
+              "name": "ShoppingList",
+              "title": "Shopping List",
+              "Icon": "ListIcon"
+            },
+            {
+              "name": "Account",
+              "title": "Account",
+              "Icon": "UserIcon",
+              "routes": [
+                {
+                  "name": "Profile"
+                },
+                {
+                  "name": "Settings"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Rating"
+        },
+        {
+          "name": "VideoClip"
         }
       ]
     }

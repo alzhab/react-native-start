@@ -16,13 +16,21 @@ export async function generateFolder(folderPath: string) {
   }
 }
 
-export function addNavigations(nav: string[], route: IRoute, parent = '') {
+export function addNavigations(
+  nav: [string, string][],
+  route: IRoute,
+  parent = '',
+) {
   const {name, routes} = route;
-  
-  nav.push(parent ? `${parent}_${name}` : name);
-  
+
+  nav.push([
+    parent ? `${parent}_${name}` : name,
+    parent ? `${parent}_${name}` : name,
+  ]);
+
   if (routes) {
     routes.forEach((childRoute) => addNavigations(nav, childRoute, name));
   }
+
   return;
 }
